@@ -1,7 +1,6 @@
 from tkinter import *
 def click(event):
     global scval,flag
-    #print("Click")
     text=event.widget.cget("text")
     if text=='=':
         if scval.get().isdigit():
