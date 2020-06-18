@@ -3,7 +3,6 @@ def click(event):
     global scval,flag
     #print("Click")
     text=event.widget.cget("text")
-    #print(text)
     if text=='=':
         if scval.get().isdigit():
             value=int(scval.get())
