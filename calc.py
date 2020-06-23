@@ -7,7 +7,7 @@ def click(event):
             value=int(scval.get())
         else:
             try:
-                value=eval(screen.get())
+                value=round(eval(screen.get()),4)
             except Exception:
                 scval.set("Invalid Exp")
                 screen.update()
