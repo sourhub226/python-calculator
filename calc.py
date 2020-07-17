@@ -9,12 +9,17 @@ def click(event):
         else:
             try:
                 value=round(eval(screen.get()),6)
+<<<<<<< HEAD
             except ZeroDivisionError:
                 screen.config(fg="red")
                 scval.set("Math Error")
                 flag=1
             except Exception as e:
                 screen.config(fg="red")
+=======
+
+            except Exception:
+>>>>>>> master
                 scval.set("Invalid Exp")
                 flag=1
         scval.set(value)
