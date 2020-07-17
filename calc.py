@@ -56,11 +56,11 @@ for btn in btn_list:
         f.pack(fill=BOTH,expand=True)
     
     if ((index+1)%4==0):
-        b= Button(f, text=btn,font="consolas 25 bold",width=1,height=2,bd=0,fg ='white',bg="#0851df")
+        b= Button(f, text=btn,font="consolas 25 bold",width=1,height=2,bd=0,fg ='white',bg="#0851df",activebackground='#2871ff',activeforeground="white")
         b.pack(fill=BOTH,expand=True,side=LEFT)
         b.bind("<Button>",click)
     else:
-        b= Button(f, text=btn,font="consolas 25 bold",width=1,height=2,bd=0,fg ='white',bg="#202125")
+        b= Button(f, text=btn,font="consolas 25 bold",width=1,height=2,bd=0,fg ='white',bg="#202125",activebackground='#404145',activeforeground="white")
         b.pack(fill=BOTH,expand=True,side=LEFT)
         b.bind("<Button>",click)
 
