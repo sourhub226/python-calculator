@@ -21,7 +21,7 @@ def click(event):
         screen.config(fg="white")
         flag=1
 
-    elif text=='Clear Input':
+    elif text=='C':
         scval.set("")
         screen.config(fg="white")
     else:
@@ -33,38 +33,40 @@ def click(event):
 
 calc=Tk()
 calc.title("Calculator")
-calc_width=380
-calc_height=520
+calc_width=400
+calc_height=620
 calc.geometry("%dx%d"%(calc_width,calc_height))
 calc.minsize(calc_width,calc_height)
 calc.configure(background="#191919")
 
-container=Frame(calc,width=13,bg="#202125")
+container=Frame(calc,bg="#202125")
 container.pack(fill=Y,expand=True)
 
 flag=0
 scval=StringVar()
 screen=Entry(container,textvar=scval,font="arial 40",bg="#303135",bd=0,fg ='white',justify=RIGHT,insertbackground='#0851df')
-screen.pack(fill=Y,expand=True,ipady=5)
+screen.pack(fill=BOTH,expand=True,side=TOP)
 
-btn_list=["7","8","9","/","4","5","6","*","1","2","3","-","0",".","=","+"]
+left_f=Frame(container,bg="#202125")
+left_f.pack(side=LEFT,fill=X,expand=True)
+right_f=Frame(container,bg="#0851df")
+right_f.pack(side=LEFT,fill=BOTH,expand=True)
 
+btn_list=["7","8","9","4","5","6","1","2","3","0",".","="]
 for btn in btn_list:
     index=btn_list.index(btn)
-    if (index%4==0):
-        f=Frame(container,bg="#202125")
+    if (index%3==0):
+        f=Frame(left_f,bg="#202125")
         f.pack(fill=BOTH,expand=True)
     
-    if ((index+1)%4==0):
-        b= Button(f, text=btn,font="consolas 25 bold",width=1,height=2,bd=0,fg ='white',bg="#0851df",activebackground='#2871ff',activeforeground="white")
-        b.pack(fill=BOTH,expand=True,side=LEFT)
-        b.bind("<Button>",click)
-    else:
-        b= Button(f, text=btn,font="consolas 25 bold",width=1,height=2,bd=0,fg ='white',bg="#202125",activebackground='#404145',activeforeground="white")
-        b.pack(fill=BOTH,expand=True,side=LEFT)
-        b.bind("<Button>",click)
+    b= Button(f, text=btn,font="consolas 28 bold",padx=20,pady=25,bd=0,fg ='white',bg="#202125",activebackground='#404145',activeforeground="white")
+    b.pack(fill=BOTH,expand=True,side=LEFT)
+    b.bind("<Button>",click)
 
-b= Button(container, text="Clear Input",font="lucida 18 bold",bd=0,fg ='white',bg="#202125")
-b.pack(ipady=10)
-b.bind("<Button>",click)
+btn_list=["C","/","*","-","+"]
+for btn in btn_list:
+    b= Button(right_f, text=btn,font="lucida 25 bold",pady=20,bd=0,fg ='white',bg="#0851df",activebackground='#2871ff',activeforeground="white")
+    b.pack(fill=BOTH,expand=True)
+    b.bind("<Button>",click)
+
 calc.mainloop()
