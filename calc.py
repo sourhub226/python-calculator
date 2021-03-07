@@ -13,7 +13,7 @@ def click(event):
                 screen.config(fg="red")
                 scval.set("Math Error")
                 flag=1
-            except Exception as e:
+            except Exception:
                 screen.config(fg="red")
                 scval.set("Invalid Exp")
                 flag=1
