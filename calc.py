@@ -1,40 +1,7 @@
-from tkinter import *
-
-
-def click(event):
-    global scval, flag
-    text = event.widget.cget("text")
-    if text == "=":
-        if scval.get().isdigit():
-            value = int(scval.get())
-        else:
-            try:
-                value = round(eval(screen.get()), 6)
-            except ZeroDivisionError:
-                show_error("Math Error")
-            except Exception:
-                show_error("Invalid Exp")
-        scval.set(value)
-        screen.config(fg="white")
-        flag = 1
-
-    elif text == "C":
-        scval.set("")
-        screen.config(fg="white")
-    else:
-        if flag:
-            scval.set("")
-            screen.config(fg="white")
-        scval.set(scval.get() + text)
-        flag = 0
-
-
-def show_error(errormsg):
-    global scval, flag
-    screen.config(fg="red")
-    scval.set(errormsg)
-    flag = 1
-
+from tkinter import Button, Entry, Frame, StringVar, Tk
+from tkinter.constants import BOTH, LEFT, RIGHT, TOP, X, Y
+from asteval import Interpreter
+aeval = Interpreter()
 
 calc = Tk()
 calc.title("Calculator")
@@ -47,11 +14,52 @@ calc.configure(background="#191919")
 container = Frame(calc, bg="#202125")
 container.pack(fill=Y, expand=True)
 
-flag = 0
-scval = StringVar()
+
+class Global:
+    def __init__(self):
+        self.flag = 0
+        self.scval = StringVar()
+
+
+Global = Global()
+
+
+def click(event):
+    text = event.widget.cget("text")
+    if text == "=":
+        if Global.scval.get().isdigit():
+            value = int(Global.scval.get())
+        else:
+            try:
+                value = round(aeval(screen.get()), 6)
+            except ZeroDivisionError:
+                show_error("Math Error")
+            except Exception:
+                show_error("Invalid Exp")
+        Global.scval.set(value)
+        screen.config(fg="white")
+        Global.flag = 1
+
+    elif text == "C":
+        Global.scval.set("")
+        screen.config(fg="white")
+    else:
+        if Global.flag:
+            Global.scval.set("")
+            screen.config(fg="white")
+        Global.scval.set(Global.scval.get() + text)
+        Global.flag = 0
+
+
+def show_error(errormsg):
+    screen.config(fg="red")
+    Global.scval.set(errormsg)
+    Global.flag = 1
+
+
 screen = Entry(
     container,
-    textvar=scval,
+    textvar=Global.scval,
     font="arial 40",
     bg="#303135",
     bd=0,
